@@ -9,9 +9,7 @@ const {
 
 const jwt = require('jsonwebtoken');
 function generarToken(thisnombre) {
-  console.log('el nombre');
-  
-  console.log(thisnombre);
+ 
   const token = jwt.sign({ nombre: thisnombre }, process.env.SECRET, { expiresIn: 60 })
   return token;
 }

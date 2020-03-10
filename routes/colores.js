@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const isLoggedIn = require('../middlewares/middleware').isLoggedIn;
+var creadorAnonimoOsuColor = require('../middlewares/middleware').creadorAnonimoOsuColor
 
 //endpoints : tipos de url
 
@@ -54,13 +54,15 @@ router.post("/", function (req, res) {
 
 //si el creador del color es anonimo, cualquier usuario autenticado puede borrar o modificar
 //si el creador no es anonimo, solo él puede modificar o borrar su color
+
+/*
 router.delete("/", function (req, res) {
   borrarColores().then(resultado => {
     res.status(resultado.status);
     res.json(resultado.body);
   });
 });
-
+*/
 router.put("/:color", function (req, res) {
   actualizarColor(req.params.color, req.body).then(resultado => {
     res.status(resultado.status);

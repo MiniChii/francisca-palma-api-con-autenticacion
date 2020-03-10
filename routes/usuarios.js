@@ -50,7 +50,7 @@ router.post('/login', function(req, res) {
 });
 
 
-router.get("/",auth.isLoggedIn, function (req, res) {
+router.get("/", function (req, res) {
     listarUsuarios().then(resultado => {
         res.status(resultado.status);
         res.json(resultado.body);
@@ -65,7 +65,7 @@ router.get("/:user", function (req, res) {
 });
 
 
-router.put("/:nombre", function (req, res) {
+router.put("/:nombre",auth.isLoggedIn, function (req, res) {
     actualizarUsuario(req.params.nombre, req.body).then(resultado => {
         res.status(resultado.status);
         res.json(resultado.body);
@@ -73,7 +73,7 @@ router.put("/:nombre", function (req, res) {
 });
 
 
-router.delete("/:color", function (req, res) {
+router.delete("/:user",auth.isLoggedIn, function (req, res) {
     borrarUsuario(req.params.color, req.body).then(resultado => {
         res.status(resultado.status);
         res.json(resultado.body);

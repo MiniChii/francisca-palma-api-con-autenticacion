@@ -9,10 +9,9 @@ isLoggedIn = function (req, res, next) {
              * The token contains user's id ( it can contain more informations )
              * and this is saved in req.user object
              */
-            console.log(req.user);
-            req.user = jwt.verify(req.headers['authorization'], process.env.SECRET);
-            console.log(req.user);
             
+            req.user = jwt.verify(req.headers['authorization'], process.env.SECRET);
+                       
         } catch (err) {
             /*
              * If the authorization header is corrupted, it throws exception
@@ -39,6 +38,7 @@ isLoggedIn = function (req, res, next) {
     return;
 }
 
+
 module.exports = {
-    isLoggedIn
+    isLoggedIn,
 }

@@ -19,6 +19,13 @@ var lista = [
   
   /**agrega un color, donde el parámetro color es un objeto con {color,rgb} */
   function agregarColor(color) {
+    if(!color.creadoPor){
+      color={
+        color: color.color,
+        rgb: color.rgb,
+        creadoPor:"" 
+      }
+    }
     return new Promise((resolve, reject) => {
       lista.push(color);
       resolve("Color agregado");
