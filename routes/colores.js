@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var creadorAnonimoOsuColor = require('../middlewares/middleware').creadorAnonimoOsuColor
+var aut= require('../middlewares/middleware')
 
 //endpoints : tipos de url
 
@@ -63,14 +63,15 @@ router.delete("/", function (req, res) {
   });
 });
 */
-router.put("/:color", function (req, res) {
+router.put("/:color",aut.anonimoOSuColor, function (req, res) {
+
   actualizarColor(req.params.color, req.body).then(resultado => {
     res.status(resultado.status);
     res.json(resultado.body);
   });
 });
 
-router.delete("/:color", function (req, res) {
+router.delete("/:color",aut.anonimoOSuColor, function (req, res) {
   borrarUnColor(req.params.color, req.body).then(resultado => {
     res.status(resultado.status);
     res.json(resultado.body);
