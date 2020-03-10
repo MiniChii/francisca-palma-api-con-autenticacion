@@ -6,6 +6,14 @@ const {
     verUsuario: modelVerUsuario
   } = require("../models/usuarios");
   
+  
+  const jwt = require('jsonwebtoken');
+  function generarToken() {
+      const token =  jwt.sign({nombre:this.nombre}, {secret: process.env.SECRETO})
+      return token;
+  }
+  
+
   function agregarUsuario(user) {
     //lamar a la capa modelo
     return modelAgregarUsuario(user).then(resultado => {
@@ -36,11 +44,11 @@ const {
     });
   }
   
-  function actualizarUsuario(nombreUsuario, passw) {
+  function actualizarUsuario(nombreUsuario, password) {
     //ver que exista el usuario
     return existe({ nombre: nombreUsuario }).then(valor => {
       if (valor) {
-        return modelActualizarUsuario({nombreUsuario, passw}).then(resultado => {
+        return modelActualizarUsuario({nombreUsuario, password}).then(resultado => {
           return { status: 200, body: { message: resultado } };
         });
       } else {
@@ -74,6 +82,7 @@ const {
     listarUsuarios,
     verUsuario,
     actualizarUsuario,
-    borrarUsuario
+    borrarUsuario,
+    generarToken
   };
   

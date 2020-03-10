@@ -7,6 +7,7 @@ const {
     verColor: modelVerColor
   } = require("../models/colores");
   
+  
   function agregarColor(color) {
     //lamar a la capa modelo
     return modelAgregarColor(color).then(resultado => {
