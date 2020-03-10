@@ -12,10 +12,6 @@ const {
     generarToken
 } = require("../controllers/usuarios");
 
-
-
-
-
 router.post("/", function (req, res) {
     agregarUsuario(req.body).then(resultado => {
         res.status(resultado.status);
@@ -32,9 +28,8 @@ router.post('/login', function(req, res) {
         user =resp.body.message
         if( req.body.username === user.nombre && req.body.password === user.password ) {
             res.json({
-                id: 1,
                 username: user.nombre,
-                jwt: generarToken()
+                jwt: generarToken(user.nombre)
             });
         } else {
             /*
@@ -43,7 +38,7 @@ router.post('/login', function(req, res) {
              */
             res.status(401).json({
                 error: {
-                    message: 'Wrong username or password!'
+                    message: 'usuario o contraseña incorrecta!'
                 }
             });
         }
@@ -55,7 +50,7 @@ router.post('/login', function(req, res) {
 });
 
 
-router.get("/", function (req, res) {
+router.get("/",auth.isLoggedIn, function (req, res) {
     listarUsuarios().then(resultado => {
         res.status(resultado.status);
         res.json(resultado.body);

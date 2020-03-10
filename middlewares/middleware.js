@@ -1,21 +1,42 @@
 
 //en proceso de creacion
-
+var jwt = require('jsonwebtoken');
 isLoggedIn = function (req, res, next) {
-    //get the token from the header if present
-    const token = req.headers["x-access-token"] || req.headers["authorization"];
-    //if no token found, return response (without going to the next middelware)
-    if (!token) return res.status(401).send("Access denied. No token provided.");
-
-    try {
-        //if can verify the token, set req.user and pass to next middleware
-        const decoded = jwt.verify(token, config.get("myprivatekey"));
-        req.user = decoded;
-        next();
-    } catch (ex) {
-        //if invalid token
-        res.status(400).send("Invalid token.");
+    if (req.hasOwnProperty('headers') && req.headers.hasOwnProperty('authorization')) {
+        try {
+            /*
+             * Try to decode & verify the JWT token
+             * The token contains user's id ( it can contain more informations )
+             * and this is saved in req.user object
+             */
+            console.log(req.user);
+            req.user = jwt.verify(req.headers['authorization'], process.env.SECRET);
+            console.log(req.user);
+            
+        } catch (err) {
+            /*
+             * If the authorization header is corrupted, it throws exception
+             * So return 401 status code with JSON error message
+             */
+            return res.status(401).json({
+                error: {
+                    msg: 'Failed to authenticate token!'
+                }
+            });
+        }
+    } else {
+        /*
+         * If there is no autorization header, return 401 status code with JSON
+         * error message
+         */
+        return res.status(401).json({
+            error: {
+                msg: 'No token!'
+            }
+        });
     }
+    next();
+    return;
 }
 
 module.exports = {

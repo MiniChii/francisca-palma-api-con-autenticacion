@@ -1,4 +1,4 @@
-const borrarColoresPorUsuario = require( "./colores");
+const borrarColoresPorUsuario = require("./colores").borrarColoresPorUsuario;
 
 var usuarios = [
     {
@@ -12,8 +12,15 @@ var usuarios = [
 /**agrega un usuario, donde el parámetro usuario es un objeto con {nombre,password} */
 function agregarUsuario(user) {
     return new Promise((resolve, reject) => {
-        usuarios.push(user);
-        resolve("Usuario agregado");
+        const index = usuarios.findIndex(buscar, { nombre: user.nombre })
+        if (index == -1) {
+            usuarios.push(user);
+            resolve("Usuario agregado");
+        }
+        else{
+            reject("Ya existe un usuario con ese nombre")
+        }
+
     });
 }
 
