@@ -6,10 +6,12 @@ const {
     verUsuario: modelVerUsuario
   } = require("../models/usuarios");
   
-  
+
   const jwt = require('jsonwebtoken');
   function generarToken() {
-      const token =  jwt.sign({nombre:this.nombre}, {secret: process.env.SECRETO})
+
+    
+      const token =  jwt.sign({nombre:this.nombre}, process.env.SECRET)
       return token;
   }
   
