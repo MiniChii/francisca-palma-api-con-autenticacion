@@ -81,7 +81,7 @@ function existe(thisArg) {
   return modelListar().then(lista => lista.some(buscarNombre, thisArg));
 }
 
-function buscarNombre(element, index, list) {
+function buscarNombre(element, index, list) {  
   return element.nombre == this.nombre;
 }
 

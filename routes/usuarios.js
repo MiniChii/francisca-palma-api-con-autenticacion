@@ -58,7 +58,7 @@ router.get("/", function (req, res) {
 });
 
 router.get("/:user", function (req, res) {
-    verUsuario(req.params.color).then(resultado => {
+    verUsuario(req.params.user).then(resultado => {
         res.status(resultado.status);
         res.json(resultado.body);
     });
@@ -74,7 +74,7 @@ router.put("/:nombre",auth.isLoggedIn, function (req, res) {
 
 
 router.delete("/:user",auth.isLoggedIn, function (req, res) {
-    borrarUsuario(req.params.color, req.body).then(resultado => {
+    borrarUsuario(req.params.user, req.body).then(resultado => {
         res.status(resultado.status);
         res.json(resultado.body);
     });
